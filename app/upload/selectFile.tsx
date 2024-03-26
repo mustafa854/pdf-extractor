@@ -15,7 +15,7 @@ export const SelectFile = ({
 }: SelectFileProps) => {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
-      if (e.target.files[0].type === "application/pdf") {
+      if (e.target.files[0]?.type === "application/pdf") {
         setFile(e.target.files[0]);
         setErrors(null);
       } else {
@@ -26,7 +26,7 @@ export const SelectFile = ({
   };
   return (
     <label htmlFor="pdf-file">
-      <div className="cursor-pointer flex flex-col w-[24vw] h-[24vw] bg-customBgSecondary border-dashed border-2  rounded-[1.5vw] border-textMutedWhite items-center justify-center">
+      <div className="cursor-pointer flex flex-col w-[24vw] h-[24vw] bg-customBgSecondary border-dashed border-2  rounded-[1.5vw] border-textMutedWhite items-center justify-center hover:border-white">
         <input
           type="file"
           accept="pdf"

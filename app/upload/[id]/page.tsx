@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { FormEvent, useEffect, useState } from "react";
 import { SrollArea } from "./scrollArea";
 import { LeftNav } from "./leftNav";
 import {
@@ -6,8 +7,81 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import { Input } from "@/components/ui/input";
-const GeneratePDF = () => {
+import axios from "axios";
+import { OriginalPDFtype } from "@/app/models/types";
+import { EditFileName } from "./editFileName";
+import { useRouter } from "next/navigation";
+
+type GeneratePDFProps = {
+  params: {
+    id: string;
+  };
+};
+
+const GeneratePDF = ({ params: { id } }: GeneratePDFProps) => {
+  const router = useRouter();
+  const [error, setError] = useState<null | string>(null);
+  const [originalFile, setOriginalFile] = useState<null | OriginalPDFtype>(
+    null
+  );
+  const [loading, setLoading] = useState<boolean>(false);
+  const [totalPages, setTotalPages] = useState<number | null>(null);
+  const [selectedPages, setSelectedPages] = useState<null | number[]>(null);
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/upload/${id}`)
+      .then((response) => {
+        setError(null);
+        setOriginalFile(response.data);
+      })
+      .catch((e) =>
+        setError(
+          "Something went wrong! Please refresh or try again after sometime."
+        )
+      );
+  }, []);
+
+  const [newName, setNewName] = useState<string>(
+    originalFile
+      ? "Edited- " +
+          originalFile.originalPdfName.slice(
+            0,
+            originalFile.originalPdfName.length - 4
+          )
+      : ""
+  );
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+    try {
+      await axios
+        .post("http://localhost:8000/generate-pdf", {
+          newName,
+          selectedPages,
+          originalPdfId: originalFile?.originalPdfId,
+        })
+        .then((response) => {
+          const pdfId = response.data; // Assuming the response contains the PDF ID
+          setLoading(false);
+
+          router.push(`/download/${pdfId}`);
+        })
+        .catch((e) => {
+          setLoading(false);
+          setError(
+            "Something went wrong! Please refresh or try again after sometime."
+          );
+        });
+    } catch (error) {
+      setLoading(false);
+      setError(
+        "Something went wrong! Please refresh or try again after sometime."
+      );
+    }
+  };
+
   return (
     <>
       <ResizablePanelGroup
@@ -15,34 +89,30 @@ const GeneratePDF = () => {
         className="min-h-screen w-full bg-[#f5f5fa]"
       >
         <ResizablePanel maxSize={25} defaultSize={20} minSize={15}>
-          <LeftNav />
+          <LeftNav
+            loading={loading}
+            setLoading={setLoading}
+            errors={error}
+            selectedPages={selectedPages}
+            totalPages={totalPages}
+            handleSubmit={handleSubmit}
+          />
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={80}>
           <div>
-            <div className="w-full px-[1.5vw] py-[1.5vw] shadow-sm">
-              <h1 className="text-xl  font-bold ">New File Name</h1>
-              <div className="flex flex-row gap-[1.5vw]">
-                <div className="w-full">
-                  <Input
-                    type="text"
-                    placeholder="New File Name"
-                    className="mt-[.5vw]"
-                  />
-                </div>
-                <div className="w-[15vw]">
-                  <button className="mt-[.5vw] w-full bg-gradient-to-r from-gradientColorOne to-gradientColorTwo hover:from-gradientColorOne hover:to-gradientColorOne transition-all duration-3000 fade-in-80 text-textWhite font-medium  text-sm p-[.75vw] rounded-md">
-                    SAVE
-                  </button>
-                </div>
-                <div className="w-[15vw]">
-                  <button className="mt-[.5vw] w-full bg-gradient-to-r from-gradientColorOne to-gradientColorTwo hover:from-gradientColorOne hover:to-gradientColorOne transition-all duration-3000 fade-in-80 text-textWhite font-medium  text-sm p-[.75vw] rounded-md">
-                    CANCEL
-                  </button>
-                </div>
-              </div>
-            </div>
-            <SrollArea />
+            <EditFileName
+              originalFile={originalFile}
+              newName={newName}
+              setNewName={setNewName}
+            />
+            <SrollArea
+              originalFile={originalFile}
+              setTotalPages={setTotalPages}
+              totalPages={totalPages}
+              selectedPages={selectedPages}
+              setSelectedPages={setSelectedPages} loading={loading}
+            />
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>

@@ -1,73 +1,91 @@
+"use client";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import Image from "next/image";
+import { OriginalPDFtype } from "@/app/models/types";
+import { Document, Page } from "react-pdf";
+import { pdfjs } from "react-pdf";
+import { useEffect } from "react";
+import { SinglePage } from "./singlePage";
 
-const pages = [
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-  { image: "/placeholder.jpg" },
-];
+type scrollAreaProps = {
+  originalFile: OriginalPDFtype | null;
+  setTotalPages: React.Dispatch<React.SetStateAction<number | null>>;
+  totalPages: number | null;
+  selectedPages: number[] | null;
+  setSelectedPages: React.Dispatch<React.SetStateAction<number[] | null>>;
+  loading: boolean;
+};
 
-export const SrollArea = () => {
+export const SrollArea = ({
+  originalFile,
+  totalPages,
+  setTotalPages,
+  selectedPages,
+  setSelectedPages,
+  loading,
+}: scrollAreaProps) => {
+  pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+    "pdfjs-dist/build/pdf.worker.min.js",
+    import.meta.url
+  ).toString();
+  const onDocumentLoadSuccess = ({ numPages }: { numPages: number }) => {
+    setTotalPages(numPages);
+  };
+
   return (
     <>
       <ScrollArea className="h-screen">
-        <div className="p-4 pb-[170px]">
-          <div className="flex flex-row flex-wrap gap-[2vw] justify-center items-center">
-            {pages.map((page, index) => (
-              <label htmlFor={`${index + 1}`} className="cursor-pointer">
-                {" "}
-                <div
-                  key={index + 1}
-                  className="felx flex-col justify-center items-center border border-dashed border-customBgPrimary      "
-                >
-                  <div className="bg-textWhite rounded-md shadow-md px-[2.5vw] pt-[2.5vw] pb-[1vw] m-[1.5vw]">
-                    <Image
-                      src={page.image}
-                      width={500}
-                      height={500}
-                      alt={`book page no ${index + 1}`}
-                      className="w-[137px] h-[180px]"
-                      style={{ boxShadow: "0px 5px 15px rgba(0,0,0,0.2)" }}
-                    />
-                    <div className="mt-[1vw] text-[1vw] text-customBgSecondary">
-                      <div className="flex items-center space-x-2 justify-center">
-                        <Checkbox id={`${index + 1}`} />
-                        <span className="ms-[1vw]"> Page {index + 1}</span>
-                      </div>
-                    </div>
+        <div className="p-12 pb-[170px]">
+          <div className="h-full w-full">
+            {loading ? (
+              <>
+                <div className="max-h-[80vh] flex flex-col justify-center items-center">
+                  <p className="text-center pb-[2vw]">Generating PDF...</p>
+                  <div className="flex flex-row flex-wrap gap-[2vw] justify-center items-center ">
+                    <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-black" />
                   </div>
                 </div>
-              </label>
-            ))}
+              </>
+            ) : (
+              <>
+                {originalFile ? (
+                  <>
+                    <Document
+                      file={`http://localhost:8000/uploads/${originalFile.originalPdfId}`}
+                      onLoadSuccess={onDocumentLoadSuccess}
+                      loading={
+                        <div className="flex flex-row flex-wrap gap-[2vw] justify-center items-center h-[80vh]">
+                          <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-black" />
+                        </div>
+                      }
+                    >
+                      <div className="grid grid-cols-4 gap-[2vw]">
+                        {totalPages ? (
+                          Array.from({ length: totalPages }, (_, i) => (
+                            <SinglePage
+                              i={i}
+                              selectedPages={selectedPages}
+                              setSelectedPages={setSelectedPages}
+                              key={i}
+                            />
+                          ))
+                        ) : (
+                          <div className="flex flex-row flex-wrap gap-[2vw] justify-center items-center h-[85vh]">
+                            <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-black" />
+                          </div>
+                        )}
+                      </div>
+                    </Document>
+                  </>
+                ) : (
+                  <>
+                    <div className="flex flex-row flex-wrap gap-[2vw] justify-center items-center h-[80vh]">
+                      <div className="border-gray-300 h-20 w-20 animate-spin rounded-full border-8 border-t-black" />
+                    </div>
+                  </>
+                )}
+              </>
+            )}
           </div>
         </div>
       </ScrollArea>

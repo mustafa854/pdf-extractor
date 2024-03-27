@@ -4,9 +4,9 @@
 
 The PDF Extractor Web Application is a tool that empowers users to upload PDF files and extract specific pages to create a new PDF document. Users can easily select pages from the uploaded PDF, preview them visually, and generate a new PDF with their chosen pages. Whether you need to extract specific chapters from a lengthy document or compile a customized document from various sources, this application simplifies the process with its intuitive interface and efficient functionality.
 
-#### **Frontend:** [Live Demo](https://pqr.com) | [Github Repo](https://xyz.com)
-#### **Backend:** [Live Demo](https://xyz.com) | [Github Repo](https://xyz.com) 
+#### [Live Demo](https://pdf-extractor-bice.vercel.app/) | **Frontend:** [Github Repo](https://github.com/mustafa854/pdf-extractor) | **Backend:** [Github Repo](https://github.com/mustafa854/pdfCreator-backend)
 
+#### [Installation](#installation) | [Project Demo Img/Video](#project-demo) | [Technologies Used](#technologies-used)
 
 ## Table of Contents
 
@@ -65,14 +65,13 @@ Steps to Create Project:
     - Clone repository y for Next.js frontend.
 
 2. **Set up Backend:**
-    - Navigate to the backend repository (x).
+    - Navigate to the [backend repository](https://github.com/mustafa854/pdfCreator-backend).
     - Run npm install to install dependencies.
     - Create a .env file and set MONGODB_URI variable.
     - Run the server using npm start.
-    - Set up Frontend:
 
 3. **Set up Frontend:**
-    - Navigate to the frontend repository (y).
+    - Navigate to the [frontend repository](https://github.com/mustafa854/pdf-extractor).
     - Run npm install to install dependencies.
     - Create a .env file and set NEXT_PUBLIC_BACKEND_URL (local host URL on which your backend is running) variable.
     - Run the development server using npm run dev.
@@ -150,8 +149,8 @@ Steps to Create Project:
 ## Deployment
 
 The project is deployed on the following URLs:
-- **Frontend:** [pqr.com](https://pqr.com) <!-- Replace with your Vercel URL -->
-- **Backend:** [xyz.com](https://xyz.com) <!-- Replace with your Render URL -->
+- **Frontend:** [pdf-extractor-bice.vercel.app](https://pdf-extractor-bice.vercel.app/) | [Github Repo](https://github.com/mustafa854/pdf-extractor) 
+- **Backend:** [pdfcreator-backend.onrender.com](https://pdfcreator-backend.onrender.com/) | [Github Repo](https://github.com/mustafa854/pdfCreator-backend)
 
 #### Deployment Instructions:
 

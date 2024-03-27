@@ -26,13 +26,21 @@ type newPDF = {
 const AllPdf =  () => {
   const [visible, setVisible] = useState<boolean>(true)
   const [data, setData] = useState<null | any>(null)
+  const [errors, setErrors] =useState<null|string>(null)
   const fetchData = async () => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}pdfs`);
-    const jsonResponse = await response.json();
-setData(jsonResponse.reverse())
-
+    setErrors(null)
+    try{
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}pdfs`);
+      const jsonResponse = await response.json();
+      setData(jsonResponse.reverse())
+      setErrors(null)
+    }catch(e){
+      setErrors("Something went wrong! Please refresh or try again later.")
+    }
+    
   }
   useEffect(()=>{
+    setErrors(null)
   fetchData()
   },[])
   return (
@@ -70,80 +78,103 @@ setData(jsonResponse.reverse())
         <div className="w-[90%] bg-customBgSecondary border-x h-[90%] border-b sm:border-b-0 rounded-b-[1.5vw] sm:rounded-b-none sm:mt-[0] sm:h-[80%] border-t border-white rounded-t-[1.5vw] p-[1.5vw]">
           <ScrollArea className="h-[100%] pr-[2vw]">
             <Accordion type="single" collapsible className="w-full">
-              {data ? (
+              {errors ? (
                 <>
-                  {data.map((d: originalPDF) => (
-                    <AccordionItem
-                      key={d.originalPdfId}
-                      value={`item-${d.originalPdfId}`}
-                      className="bg-customBgPrimary border-b-0 mt-[1vw] px-[4vw] py-[1vw] md:px-[2vw] md:py-[1vw] rounded-[1.5vw] text-white text-[3.5vw] md:text-[1.5vw] xl:text-[1.25vw]"
-                    >
-                      <AccordionTrigger className="hover:no-underline">
-                        <div className=" flex flex-row justify-between items-center w-full">
-                          <div className="flex flex-col text-clip text-left mr-[2vw]">
-                            {d.originalPdfName}
-                            <p className=" text-[3vw] text-textMutedWhiteBright md:text-[1.15vw] xl:text-[.85vw]">
-                              {d.createdAt}
-                            </p>
-                          </div>
-                          <div className="flex md:flex-row flex-col">
-                            <Link
-                              href={`${process.env.NEXT_PUBLIC_BACKEND_URL}uploads/${d.originalPdfId}`}
-                              className={`${buttonVariants({
-                                variant: "outline",
-                              })} text-black mr-[2vw] `}
-                            >
-                              Check PDF
-                            </Link>
-                            <a
-                              href={`/upload/${d.originalPdfId}`}
-                              className={`${buttonVariants({
-                                variant: "outline",
-                              })} text-black mr-[2vw] mt-[1vw] md:mt-[0vw] `}
-                            >
-                              Edit PDF
-                            </a>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-                      <AccordionContent className="text-[3vw] md:text-[1.15vw] xl:text-[.85vw]">
-                        <ul>
-                          {d.newPDF.length === 0 ? (
-                            <p className="text-red-500">No PDFs Generated!</p>
-                          ) : (
-                            <>
-                              {d.newPDF.reverse().map((pdf) => (
-                                <li
-                                  key={pdf.id}
-                                  className="flex flex-row justify-between items-center text-[3vw] md:text-[1.25vw] xl:text-[.95vw]"
-                                >
-                                  <div className="flex flex-col gap-[.5vw]">
-                                    {" "}
-                                    {pdf.pdfName}
-                                    <p className=" text-[3vw] text-textMutedWhiteBright md:text-[1.15vw] xl:text-[.85vw]">
-                                      {pdf.createdAt}
-                                    </p>
-                                  </div>{" "}
-                                  <a
-                                    className={`${buttonVariants({
-                                      variant: "outline",
-                                    })} text-black mr-[3vw]`}
-                                    href={`${process.env.NEXT_PUBLIC_BACKEND_URL}uploads/${pdf.id}.pdf`}
-                                  >
-                                    Check PDF
-                                  </a>
-                                </li>
-                              ))}
-                            </>
-                          )}
-                        </ul>
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
+                  <p className="text-red-500 text-center pt-[5vw]">
+                    {errors}
+                  </p>
                 </>
               ) : (
                 <>
-                  <p className="text-white">Loading...</p>
+                  {data !== null ? (
+                    <>
+                      {data.length === 0 ? (
+                        <>
+                          <p className="text-red-500 text-center pt-[5vw]">
+                            No data Uploaded yet! Please upload a PDF to see the
+                            data.
+                          </p>
+                        </>
+                      ) : (
+                        <>
+                          {data.map((d: originalPDF) => (
+                            <AccordionItem
+                              key={d.originalPdfId}
+                              value={`item-${d.originalPdfId}`}
+                              className="bg-customBgPrimary border-b-0 mt-[1vw] px-[4vw] py-[1vw] md:px-[2vw] md:py-[1vw] rounded-[1.5vw] text-white text-[3.5vw] md:text-[1.5vw] xl:text-[1.25vw]"
+                            >
+                              <AccordionTrigger className="hover:no-underline">
+                                <div className=" flex flex-row justify-between items-center w-full">
+                                  <div className="flex flex-col text-clip text-left mr-[2vw]">
+                                    {d.originalPdfName}
+                                    <p className=" text-[3vw] text-textMutedWhiteBright md:text-[1.15vw] xl:text-[.85vw]">
+                                      {d.createdAt}
+                                    </p>
+                                  </div>
+                                  <div className="flex md:flex-row flex-col">
+                                    <Link
+                                      href={`${process.env.NEXT_PUBLIC_BACKEND_URL}uploads/${d.originalPdfId}`}
+                                      className={`${buttonVariants({
+                                        variant: "outline",
+                                      })} text-black mr-[2vw] `}
+                                    >
+                                      Check PDF
+                                    </Link>
+                                    <a
+                                      href={`/upload/${d.originalPdfId}`}
+                                      className={`${buttonVariants({
+                                        variant: "outline",
+                                      })} text-black mr-[2vw] mt-[1vw] md:mt-[0vw] `}
+                                    >
+                                      Edit PDF
+                                    </a>
+                                  </div>
+                                </div>
+                              </AccordionTrigger>
+                              <AccordionContent className="text-[3vw] md:text-[1.15vw] xl:text-[.85vw]">
+                                <ul>
+                                  {d.newPDF.length === 0 ? (
+                                    <p className="text-red-500">
+                                      No PDFs Generated!
+                                    </p>
+                                  ) : (
+                                    <>
+                                      {d.newPDF.reverse().map((pdf) => (
+                                        <li
+                                          key={pdf.id}
+                                          className="flex flex-row justify-between items-center text-[3vw] md:text-[1.25vw] xl:text-[.95vw]"
+                                        >
+                                          <div className="flex flex-col gap-[.5vw]">
+                                            {" "}
+                                            {pdf.pdfName}
+                                            <p className=" text-[3vw] text-textMutedWhiteBright md:text-[1.15vw] xl:text-[.85vw]">
+                                              {pdf.createdAt}
+                                            </p>
+                                          </div>{" "}
+                                          <a
+                                            className={`${buttonVariants({
+                                              variant: "outline",
+                                            })} text-black mr-[3vw]`}
+                                            href={`${process.env.NEXT_PUBLIC_BACKEND_URL}uploads/${pdf.id}.pdf`}
+                                          >
+                                            Check PDF
+                                          </a>
+                                        </li>
+                                      ))}
+                                    </>
+                                  )}
+                                </ul>
+                              </AccordionContent>
+                            </AccordionItem>
+                          ))}
+                        </>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-white">Loading...</p>
+                    </>
+                  )}
                 </>
               )}
             </Accordion>

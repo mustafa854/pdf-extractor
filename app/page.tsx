@@ -3,11 +3,7 @@ import { ArrowRight, ChevronRight, UploadIcon, User2 } from "lucide-react";
 import { useEffect } from "react";
 
 export default function Home() {
-  // useEffect(() => {
-  //   fetch("http://localhost:8000/message")
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data));
-  // });
+ 
   return (
     <div className="w-full h-screen bg-customBgPrimary flex items-center justify-center">
       <button

@@ -10,7 +10,6 @@ type props = {
 };
 
 const DownloadPDF = ({ params: { id } }: props) => {
-  // const response = await fetch(`http://localhost:8000//${id}`)
 
   return (
     <div>

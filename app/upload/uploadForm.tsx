@@ -26,7 +26,7 @@ export const UploadForm = () => {
           setLoading(true);
           axios
             .post(
-              "http://localhost:8000/upload",
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}upload`,
               {
                 pdfFile: file,
               },

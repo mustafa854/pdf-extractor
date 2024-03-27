@@ -32,7 +32,7 @@ const GeneratePDF = ({ params: { id } }: GeneratePDFProps) => {
   const [selectedPages, setSelectedPages] = useState<null | number[]>(null);
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/upload/${id}`)
+      .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}upload/${id}`)
       .then((response) => {
         setError(null);
         setOriginalFile(response.data);
@@ -60,7 +60,7 @@ const GeneratePDF = ({ params: { id } }: GeneratePDFProps) => {
     setLoading(true);
     try {
       await axios
-        .post("http://localhost:8000/generate-pdf", {
+        .post(`${process.env.NEXT_PUBLIC_BACKEND_URL}generate-pdf`, {
           newName,
           selectedPages,
           originalPdfId: originalFile?.originalPdfId,

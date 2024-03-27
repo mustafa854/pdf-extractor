@@ -51,7 +51,7 @@ export const SrollArea = ({
                 {originalFile ? (
                   <>
                     <Document
-                      file={`http://localhost:8000/uploads/${originalFile.originalPdfId}`}
+                      file={`${process.env.NEXT_PUBLIC_BACKEND_URL}uploads/${originalFile.originalPdfId}`}
                       onLoadSuccess={onDocumentLoadSuccess}
                       loading={
                         <div className="flex flex-row flex-wrap gap-[2vw] justify-center items-center h-[80vh]">

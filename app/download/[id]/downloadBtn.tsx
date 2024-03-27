@@ -3,7 +3,10 @@ import { DownloadIcon } from "lucide-react";
 
 export const DownloadBtn = ({ id }: { id: string }) => {
   const handleClick = () => {
-    window.open(`http://localhost:8000/uploads/${id}.pdf`, "_blank");
+    window.open(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}uploads/${id}.pdf`,
+      "_blank"
+    );
   };
 
   return (

@@ -78,7 +78,7 @@ export const UploadForm = () => {
   };
   return (
     <form method="POST" onSubmit={handleSubmit} encType="multipart/form-data">
-      <div className="flex flex-row gap-[2vw] mt-[2vw] ">
+      <div className="flex flex-col sm:flex-row gap-[2vw] mt-[2vw] ">
         <div className="flex flex-col">
           <SelectFile
             setFile={setFile}
@@ -99,7 +99,7 @@ export const UploadForm = () => {
 
           {!file && (
             <div className="w-full h-full flex justify-center items-center">
-              <p className="text-sm text-customBgAccent">No Files Selected</p>
+              <p className="text-[3vw] sm:text-[1.25vw]  text-customBgAccent">No Files Selected</p>
             </div>
           )}
 
@@ -110,17 +110,17 @@ export const UploadForm = () => {
            * Error Messages also goes here
            *
            */}
-          {error && <p className="text-red-500">{error}</p>}
-          <div className="flex flex-col gap-[1vw]">
+          {error && <p className="text-red-500 text-[1.25vw] ">{error}</p>}
+          <div className="flex flex-col gap-[3vw] md:gap-[1vw]">
             {progress !== 0 ? (
-              <Progress value={progress} className="bg-white " />
+              <Progress value={progress} className="bg-white h-[2vw] " />
             ) : (
               <></>
             )}
             <div className="flex flex-row gap-[1vw]">
               <UploadButton loading={loading} setLoading={setLoading} />
               <button className="p-[.75vw] bg-customBgSecondary rounded-[.5vw]">
-                <Ellipsis className="w-full  text-gradientColorTwo  font-medium  text-sm " />
+                <Ellipsis className="w-full  text-gradientColorTwo  font-medium  text-[1.25vw]  " />
               </button>
             </div>
           </div>

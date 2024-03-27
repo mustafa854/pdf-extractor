@@ -26,7 +26,7 @@ export const SelectFile = ({
   };
   return (
     <label htmlFor="pdf-file">
-      <div className="cursor-pointer flex flex-col w-[24vw] h-[24vw] bg-customBgSecondary border-dashed border-2  rounded-[1.5vw] border-textMutedWhite items-center justify-center hover:border-white">
+      <div className="cursor-pointer flex flex-col w-full h-[74vw] sm:w-[24vw] sm:h-[24vw] bg-customBgSecondary border-dashed border-2  rounded-[1.5vw] border-textMutedWhite items-center justify-center hover:border-white">
         <input
           type="file"
           accept="pdf"
@@ -39,13 +39,13 @@ export const SelectFile = ({
           src="/upload-undraw.svg"
           width={500}
           height={500}
-          className="w-[5vw]"
+          className="sm:w-[5vw] w-[10vw]"
           alt="file upload image"
         />
-        <p className=" text-textWhite text-lg font-medium mt-[1.5vw]">
+        <p className=" text-textWhite sm:text-[1.25vw] text-[4.5vw] font-medium mt-[1.5vw]">
           Select your file here
         </p>
-        <p className="text-sm text-customBgAccent mt-[.5vw]">PDF files only</p>
+        <p className="text-[3vw] sm:text-[1vw] text-customBgAccent mt-[.5vw]">PDF files only</p>
       </div>
     </label>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { NavBar } from "./navBar";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -23,10 +24,13 @@ export default function RootLayout({
       <head />
       <body
         className={cn(
-          "bg-background font-sans antialiased overflow-y-hidden",
+          "bg-background font-sans antialiased overflow-y-hidden ",
           fontSans.variable
         )}
       >
+        <header className="z-50 relative">
+          <NavBar />
+        </header>
         <main className="bg-customBgAccent">{children}</main>
       </body>
     </html>

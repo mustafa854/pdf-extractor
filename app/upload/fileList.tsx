@@ -20,17 +20,17 @@ const FileList = ({
   const loaded = 0;
   return (
     <div className="w-full flex flex-row justify-between">
-      <div className="flex flex-row gap-[1vw]">
-        <div className=" bg-customBgSecondary rounded-[.5vw] px-[1vw] py-[1.25vw]">
-          <p className="text-textWhite text-base font-medium text-clip">
+      <div className="flex flex-row gap-[2vw] md:gap-[1vw]">
+        <div className=" bg-customBgSecondary rounded-[.5vw] flex justify-center items-center md:px-[1vw] md:py-[1.25vw] px-[2vw] py-[2.5vw]">
+          <p className="text-textWhite text-[3vw] md:text-[1.5vw]  font-medium text-clip">
             {file?.type.replace(/^application\//, "").toUpperCase()}
           </p>
         </div>
         <div className="flex flex-col justify-between my-[.35vw]">
-          <p className="text-textWhite text-base font-medium line-clamp-1">
+          <p className="text-textWhite text-[3vw] md:text-[1.5vw]  font-medium line-clamp-1">
             {file?.name}
           </p>
-          <p className="text-sm text-customBgAccent">
+          <p className="text-[2.5vw] md:text-[1.25vw]  text-customBgAccent">
             {file ? `${(file.size / 1000).toFixed(1)} KB` : "NA"}
           </p>
         </div>
@@ -42,8 +42,10 @@ const FileList = ({
             <Check className="text-textWhite font-medium" />
           </div>
         ) : (
-          <div className="border-2 border-customBgAccent rounded-full p-[1vw]">
-            <p className="text-textWhite text-sm font-medium">{progress}%</p>
+          <div className="border-2 border-customBgAccent rounded-full p-[1vw] flex justify-center items-center">
+            <p className="text-textWhite text-[2.5vw] md:text-[1.25vw]  font-medium">
+              {progress}%
+            </p>
           </div>
         )}
 

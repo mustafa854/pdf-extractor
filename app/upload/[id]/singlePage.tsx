@@ -17,9 +17,9 @@ export const SinglePage = ({ i, selectedPages, setSelectedPages }: props) => {
     <label htmlFor={`${i}`} className="cursor-pointer">
       <div
         key={i + 1}
-        className="felx flex-col justify-center items-center border border-dashed border-customBgPrimary      "
+        className="flex flex-col justify-center items-center       "
       >
-        <div className="bg-textWhite rounded-md shadow-md px-[2.5vw] pt-[2.5vw] pb-[1vw] m-[1.5vw]">
+        <div className="bg-textWhite rounded-[1.5vw] border border-dashed border-customBgPrimary shadow-md px-[2.5vw] pt-[2.5vw] pb-[1vw] xl:px-[1.5vw] xl:pt-[1.5vw] xl:pb-[.75vw] xl:rounded-[.5vw] lg:px-[1.5vw] lg:pt-[1.5vw] lg:pb-[.75vw] lg:rounded-[.5vw]">
           <div className="relative">
             <Page
               pageNumber={i + 1}
@@ -31,21 +31,9 @@ export const SinglePage = ({ i, selectedPages, setSelectedPages }: props) => {
               //   onLoadSuccess={() => setLoading(false)}
               //   onLoadError={() => setLoading(false)}
             />
-            {/* {
-              <div className="absolute top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-                <div className="flex flex-row flex-wrap gap-[2vw] justify-center items-center">
-                  <div className="border-gray-300 h-4 w-4 animate-spin rounded-full border-2 border-t-black" />
-                </div>{" "}
-              </div>
-            }
-            {showError && (
-              <p className="text-xs text-red-500">
-                Something went wrong! please refresh.
-              </p>
-            )} */}
           </div>
 
-          <div className="mt-[1vw] text-[1vw] text-customBgSecondary">
+          <div className="mt-[1vw] xl:mt-[.5vw] text-[1vw] text-customBgSecondary">
             <div className="flex items-center space-x-2 justify-center">
               <Checkbox
                 id={`${i}`}
@@ -68,7 +56,10 @@ export const SinglePage = ({ i, selectedPages, setSelectedPages }: props) => {
                   }
                 }}
               />
-              <span className="ms-[1vw]"> Page {i + 1}</span>
+              <span className="ms-[1vw] text-[3vw] sm:text-[2vw] md:text-[1.5vw] xl:text-[1.25vw]">
+                {" "}
+                Page {i + 1}
+              </span>
             </div>
           </div>
         </div>

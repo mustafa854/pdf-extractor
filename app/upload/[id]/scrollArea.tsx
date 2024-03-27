@@ -35,7 +35,7 @@ export const SrollArea = ({
   return (
     <>
       <ScrollArea className="h-screen">
-        <div className="p-12 pb-[170px]">
+        <div className="p-[5vw] sm:p-[3vw] xl:pb-[15vw]">
           <div className="h-full w-full">
             {loading ? (
               <>
@@ -59,7 +59,7 @@ export const SrollArea = ({
                         </div>
                       }
                     >
-                      <div className="grid grid-cols-4 gap-[2vw]">
+                      <div className="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 sm:grid-cols-3 gap-[2vw]">
                         {totalPages ? (
                           Array.from({ length: totalPages }, (_, i) => (
                             <SinglePage

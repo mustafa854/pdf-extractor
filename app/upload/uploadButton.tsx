@@ -13,7 +13,7 @@ export const UploadButton = ({ loading, setLoading }: UploadButtonprops) => {
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-gradient-to-r from-gradientColorOne to-gradientColorTwo hover:from-gradientColorOne hover:to-gradientColorOne transition-all duration-3000 fade-in-80 text-textWhite font-medium  text-sm p-[.75vw] rounded-[.5vw]"
+        className="w-full bg-gradient-to-r from-gradientColorOne to-gradientColorTwo hover:from-gradientColorOne hover:to-gradientColorOne transition-all duration-3000 fade-in-80 text-textWhite font-medium text-[3vw]  sm:text-[1.25vw]  p-[.75vw] rounded-[.5vw]"
       >
         {loading ? (
           <div className="flex flex-row gap-[1vw] justify-center items-center">

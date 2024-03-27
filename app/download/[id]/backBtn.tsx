@@ -7,7 +7,7 @@ export const BackBtn = () => {
   return (
     <button
       onClick={() => router.back()}
-      className="cursor-pointer shadow-md text-md flex items-center justify-center p-3 rounded-full text-white bg-customBgSecondary"
+      className="cursor-pointer shadow-md text-md flex items-center justify-center p-[3vw] sm:p-[1.5vw] rounded-full text-white bg-customBgSecondary"
     >
       <ArrowLeft />
     </button>

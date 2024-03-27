@@ -11,6 +11,9 @@ import axios from "axios";
 import { OriginalPDFtype } from "@/app/models/types";
 import { EditFileName } from "./editFileName";
 import { useRouter } from "next/navigation";
+import { ButtonSpinner } from "@/app/components/buttonSpinner";
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@radix-ui/react-tooltip";
+import { FileText } from "lucide-react";
 
 type GeneratePDFProps = {
   params: {
@@ -88,7 +91,12 @@ const GeneratePDF = ({ params: { id } }: GeneratePDFProps) => {
         direction="horizontal"
         className="min-h-screen w-full bg-[#f5f5fa]"
       >
-        <ResizablePanel maxSize={25} defaultSize={20} minSize={15}>
+        <ResizablePanel
+          className="hidden md:block bg-white"
+          maxSize={25}
+          defaultSize={20}
+          minSize={15}
+        >
           <LeftNav
             loading={loading}
             setLoading={setLoading}
@@ -98,7 +106,7 @@ const GeneratePDF = ({ params: { id } }: GeneratePDFProps) => {
             handleSubmit={handleSubmit}
           />
         </ResizablePanel>
-        <ResizableHandle withHandle />
+        <ResizableHandle className="hidden md:block" withHandle />
         <ResizablePanel defaultSize={80}>
           <div>
             <EditFileName
@@ -111,8 +119,49 @@ const GeneratePDF = ({ params: { id } }: GeneratePDFProps) => {
               setTotalPages={setTotalPages}
               totalPages={totalPages}
               selectedPages={selectedPages}
-              setSelectedPages={setSelectedPages} loading={loading}
+              setSelectedPages={setSelectedPages}
+              loading={loading}
             />
+          </div>{" "}
+          <div className="grow flex items-end px-4 absolute left-[50vw] translate-x-[-50%] bottom-[2vw] md:hidden">
+            <TooltipProvider delayDuration={0}>
+              <Tooltip>
+                <TooltipTrigger className="w-full" asChild>
+                  <div className=" translate-y-[-200%] ">
+                    {/* {errors && <p className="text-red-500">{errors}</p>} */}
+
+                    <button
+                      disabled={
+                        !selectedPages || selectedPages.length === 0 || loading
+                          ? true
+                          : false
+                      }
+                      className=" w-full bg-gradient-to-r from-gradientColorOne to-gradientColorTwo hover:from-gradientColorOne hover:to-gradientColorOne transition-all duration-3000 fade-in-80 text-textWhite font-medium  text-sm p-[.75vw] rounded-md disabled:from-slate-500 disabled:to-slate-500 disabled:cursor-not-allowed"
+                      onClick={handleSubmit}
+                    >
+                      {loading ? (
+                        <div className="flex flex-row gap-[1vw] justify-center items-center">
+                          <ButtonSpinner size={4} color="black" />
+                          GENERATING...
+                        </div>
+                      ) : (
+                        <div className="flex flex-row gap-[1vw] justify-center items-center">
+                          <FileText />
+                          GENERATE PDF
+                        </div>
+                      )}
+                    </button>
+                  </div>
+                </TooltipTrigger>
+                {!selectedPages ? (
+                  <TooltipContent className="">
+                    <p>Select atleast 1 page!</p>
+                  </TooltipContent>
+                ) : (
+                  <></>
+                )}
+              </Tooltip>
+            </TooltipProvider>
           </div>
         </ResizablePanel>
       </ResizablePanelGroup>

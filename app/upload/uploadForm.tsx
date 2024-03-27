@@ -112,7 +112,7 @@ export const UploadForm = () => {
            */}
           {error && <p className="text-red-500 text-[1.25vw] ">{error}</p>}
           <div className="flex flex-col gap-[3vw] md:gap-[1vw]">
-            {progress !== 0 ? (
+            {(progress !== 0 || progress !== 100) ? (
               <Progress value={progress} className="bg-white h-[2vw] " />
             ) : (
               <></>

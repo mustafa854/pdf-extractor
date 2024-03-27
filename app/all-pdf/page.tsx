@@ -52,12 +52,12 @@ setData(jsonResponse.reverse())
                 services but are saved as files on the server. Current
                 implementation is deployed on the{" "}
                 <b>
-                  <u>"Render Cloud Hosting Service"</u>
+                  <u>&quot;Render Cloud Hosting Service&quot;</u>
                 </b>
                 , and they allow storage of user generated files temprorily, so
-                the files are deleted after some time. Therefore older files might
-                not be available on "check pdf" button, to check the
-                Implementation upload the files again and check them
+                the files are deleted after some time. Therefore older files
+                might not be available on &quot;check pdf&quot; button, to check
+                the Implementation upload the files again and check them
                 immediately! Thank You.{" "}
               </p>
             </div>
@@ -74,6 +74,7 @@ setData(jsonResponse.reverse())
                 <>
                   {data.map((d: originalPDF) => (
                     <AccordionItem
+                      key={d.originalPdfId}
                       value={`item-${d.originalPdfId}`}
                       className="bg-customBgPrimary border-b-0 mt-[1vw] px-[4vw] py-[1vw] md:px-[2vw] md:py-[1vw] rounded-[1.5vw] text-white text-[3.5vw] md:text-[1.5vw] xl:text-[1.25vw]"
                     >
@@ -112,7 +113,7 @@ setData(jsonResponse.reverse())
                           ) : (
                             <>
                               {d.newPDF.reverse().map((pdf) => (
-                                <li className="flex flex-row justify-between items-center text-[3vw] md:text-[1.25vw] xl:text-[.95vw]">
+                                <li key={pdf.id} className="flex flex-row justify-between items-center text-[3vw] md:text-[1.25vw] xl:text-[.95vw]">
                                   <div className="flex flex-col gap-[.5vw]">
                                     {" "}
                                     {pdf.pdfName}

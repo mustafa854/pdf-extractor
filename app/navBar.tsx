@@ -51,7 +51,7 @@ export const NavBar = () => {
                     All PDFs
                   </Link>
                 </li>
-                <li className="block px-[1vw] py-[.5vw] font-sans text-[1vw] antialiased font-medium leading-normal text-blue-gray-900">
+                {/* <li className="block px-[1vw] py-[.5vw] font-sans text-[1vw] antialiased font-medium leading-normal text-blue-gray-900">
                   <Link
                     href="/signup"
                     className="flex items-center transition-colors  px-[1vw] py-[.5vw] rounded-full hover:text-white hover:bg-customBgPrimary"
@@ -82,7 +82,7 @@ export const NavBar = () => {
                   >
                     Dashboard
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <button

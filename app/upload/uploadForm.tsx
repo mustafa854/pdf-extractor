@@ -56,9 +56,9 @@ export const UploadForm = () => {
             )
             .then((response) => {
               setLoading(false);
-              setTimeout(() => {
+              
                 router.push(`/upload/${response.data.docId}`);
-              }, 1000);
+              
             })
             .catch((e) => {
               setErrors("Something went wrong!");

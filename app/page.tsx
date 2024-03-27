@@ -1,12 +1,13 @@
 "use client";
 import { ArrowRight, ChevronRight, UploadIcon, User2 } from "lucide-react";
+import Link from "next/link";
 import { useEffect } from "react";
 
 export default function Home() {
  
   return (
     <div className="w-full h-screen bg-customBgPrimary flex items-center justify-center">
-      <button
+      {/* <button
         type="submit"
         className="bg-gradient-to-r md:top-[1vw]  top-[3vw] right-[3vw]  md:right-[1vw] from-gradientColorOne to-gradientColorTwo hover:from-gradientColorOne hover:to-gradientColorOne transition-all duration-3000 fade-in-80 text-textWhite font-medium md:py-[1.25vw] md:px-[1.75vw] py-[1vw] px-[1.25vw] rounded-[.5vw] absolute"
       >
@@ -14,7 +15,7 @@ export default function Home() {
           SIGNUP
           <ChevronRight />
         </div>
-      </button>
+      </button> */}
 
       <div className="flex flex-col justify-center items-center md:gap-[2.5vw] gap-[4vw]">
         <div className="flex flex-col justify-center items-center">
@@ -27,16 +28,15 @@ export default function Home() {
         </div>
         <div>
           <div className="flex flex-row gap-[1.5vw]">
-            <button
-              type="submit"
+            <Link href="/upload"
               className="bg-gradient-to-r font-light  from-gradientColorOne to-gradientColorTwo hover:from-gradientColorOne hover:to-gradientColorOne transition-all duration-3000 fade-in-80 text-textWhite md:py-[1.25vw] md:px-[1.75vw] py-[1vw] px-[1.25vw] rounded-[.5vw]"
             >
               <div className="flex flex-row gap-[1vw] text-[2.5vw] md:text-[1.15vw] justify-center items-center">
                 GENERATE NOW
                 <UploadIcon />
               </div>
-            </button>
-            <button
+            </Link>
+            {/* <button
               type="submit"
               className="bg-gradient-to-r font-light  from-gradientColorOne to-gradientColorTwo hover:from-gradientColorOne hover:to-gradientColorOne transition-all duration-3000 fade-in-80 text-textWhite md:py-[1.25vw] md:px-[1.75vw] py-[1vw] px-[1.25vw] rounded-[.5vw]"
             >
@@ -49,7 +49,7 @@ text-[2.5vw] md:text-[1.15vw] justify-center items-center"
                   <User2 />
                 </div>
               </div>
-            </button>
+            </button> */}
           </div>{" "}
         </div>
       </div>

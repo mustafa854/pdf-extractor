@@ -113,7 +113,10 @@ setData(jsonResponse.reverse())
                           ) : (
                             <>
                               {d.newPDF.reverse().map((pdf) => (
-                                <li key={pdf.id} className="flex flex-row justify-between items-center text-[3vw] md:text-[1.25vw] xl:text-[.95vw]">
+                                <li
+                                  key={pdf.id}
+                                  className="flex flex-row justify-between items-center text-[3vw] md:text-[1.25vw] xl:text-[.95vw]"
+                                >
                                   <div className="flex flex-col gap-[.5vw]">
                                     {" "}
                                     {pdf.pdfName}
@@ -125,7 +128,7 @@ setData(jsonResponse.reverse())
                                     className={`${buttonVariants({
                                       variant: "outline",
                                     })} text-black mr-[3vw]`}
-                                    href={`${process.env.NEXT_PUBLIC_BACKEND_URL}uploads/${d.originalPdfId}.pdf`}
+                                    href={`${process.env.NEXT_PUBLIC_BACKEND_URL}uploads/${pdf.id}.pdf`}
                                   >
                                     Check PDF
                                   </a>
